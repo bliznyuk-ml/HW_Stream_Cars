@@ -3,7 +3,7 @@ package org.example.task2;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Solution extends Point {
+public class Solution<T> extends Point<T> {
 
     public Solution(double x, double y) {
         super(x, y);
@@ -29,11 +29,11 @@ public class Solution extends Point {
     }
 
     public static void sortPoints(List<Point> list) {
-
+        Comparator<Map.Entry<Double, List<Point>>> comparator = Comparator.comparing(Map.Entry::getKey);
         list.stream().collect(Collectors.groupingBy(Solution::hypotenuse))
                 .entrySet()
                 .stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey).reversed())
+                .sorted(comparator.reversed())
                 .forEach(System.out::println);
     }
 }
